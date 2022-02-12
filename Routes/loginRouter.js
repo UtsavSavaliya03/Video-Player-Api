@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
                             email: user.email,
                             userName: user.userName
                         },
-                            'This is secret key',
+                            process.env.JWT_SECRET_KEY,
                             {
                                 expiresIn: '10d'
                             }

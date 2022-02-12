@@ -20,7 +20,7 @@ function shuffle(array) {
 }
 
 router.post('/', async (req, res) => {
-    await Videos.find().populate({ path: "channel_id", select: ["channelName", "channel_profile"] }).sort({ "createDate": -1 })
+    await Videos.find({visibility: public}).populate({ path: "channel_id", select: ["channelName", "channel_profile"] }).sort({ "createDate": -1 })
         .then((result) => {
             if (result.length < 1) {
                 return res.status(401).json({
