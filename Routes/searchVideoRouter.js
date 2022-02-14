@@ -4,7 +4,7 @@ const Video = require('../Models/videoModel');
 
 router.post('/:name', (req, res) => {
     var regex = new RegExp(req.params.name, 'i');
-    Video.find({ videoName: regex }).populate({path: "channel_id", select: ["channelName", "channel_profile"]})
+    Video.find({$and: [{ videoName: regex }, {visibility:"Public"}]}).populate({path: "channel_id", select: ["channelName", "channel_profile"]})
         .then((result) => {
             res.status(200).json({
                 status: true,
