@@ -20,7 +20,7 @@ router.post('/:category', async (req, res) => {
 
     await Video.find({ $and: [{ category: req.params.category }, {visibility:"Public"}]}).populate({ path: "channel_id", select: ["channelName", "channel_profile"] }).sort({ "createDate": -1 })
         .then((result) => {
-            if (result.length > 1) {
+            if (result.length > 0) {
                 res.status(200).json({
                     status: true,
                     msg: `Video of ${req.params.category} category...!`,
