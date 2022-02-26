@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     country: String,
     address: String,
     password: String,
+    token: Array,
     createDate: Date,
     updateDate: Date
 }); 

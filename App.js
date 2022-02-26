@@ -7,6 +7,8 @@ const App = express();
 const signupRouter = require('./Routes/signupRouter');
 const loginRouter = require('./Routes/loginRouter');
 const getUserRouter = require('./Routes/getUserRouter');
+const getUserTokenRouter = require('./Routes/getUserTokenRouter');
+const logoutRouter = require('./Routes/logoutRouter');
 
 // User
 const updateProfileRouter = require('./Routes/updateProfileRouter');
@@ -86,6 +88,12 @@ App.use('/login', loginRouter);
 
 // Get User Details
 App.use('/getUser', getUserRouter);
+
+// Get user's token
+App.use('/getUserToken', getUserTokenRouter);
+
+// Logout User
+App.use('/logout', logoutRouter);
 
 // User
 App.use('/updateProfile', updateProfileRouter);     // Update User profile

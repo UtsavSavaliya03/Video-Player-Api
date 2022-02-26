@@ -8,11 +8,19 @@ const User = require('../Models/userModel');
 
 router.use(bodyParser.json());
 
+async function addToken(userId ,token) {
+    await User.findOneAndUpdate({ _id: userId }, {
+        $push: {
+            token: token
+        }
+    })
+}
+
 router.post('/', async (req, res) => {
     await User.findOne({ $or: [{ userName: req.body.userName }, { email: req.body.email }] })
         .exec()
         .then((user) => {
-            if (user.length < 1) {
+            if (user == null) {
                 res.status(401).json({
                     status: false,
                     msg: "User does not exist...!"
@@ -36,6 +44,7 @@ router.post('/', async (req, res) => {
                                 expiresIn: '10d'
                             }
                         );
+
                         res.status(200).json({
                             status: true,
                             msg: "Login successfully...!",
@@ -54,6 +63,7 @@ router.post('/', async (req, res) => {
                                 token: token
                             }
                         })
+                        addToken(user._id, token);
                     }
                 })
             }
